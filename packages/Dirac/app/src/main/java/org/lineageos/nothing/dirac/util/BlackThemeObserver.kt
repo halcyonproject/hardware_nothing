@@ -12,7 +12,7 @@ import android.os.Looper
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import lineageos.providers.LineageSettings
+import android.provider.Settings
 
 class BlackThemeObserver(private val context: Context) :
     ContentObserver(Handler(Looper.getMainLooper())) {
@@ -22,7 +22,7 @@ class BlackThemeObserver(private val context: Context) :
 
     init {
         context.contentResolver.registerContentObserver(
-            LineageSettings.Secure.getUriFor(LineageSettings.Secure.BERRY_BLACK_THEME),
+            Settings.Secure.getUriFor(Settings.Secure.BERRY_BLACK_THEME),
             false,
             this,
         )
@@ -33,9 +33,9 @@ class BlackThemeObserver(private val context: Context) :
     }
 
     private fun readValue() =
-        LineageSettings.Secure.getInt(
+        Settings.Secure.getInt(
             context.contentResolver,
-            LineageSettings.Secure.BERRY_BLACK_THEME,
+            Settings.Secure.BERRY_BLACK_THEME,
             0,
         ) != 0
 
